@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Header = (props) => {
+    // * TS 1:20:41
   return (
     <Container>
         <Content>
@@ -20,11 +21,65 @@ const Header = (props) => {
          </Search>   
          <Nav>
           <NavListWrap>
-            <NavList>
+            <NavList className="active">
               <a>
                 <img src="/images/nav-home.svg"/>
+                <span>Home</span>
               </a>
             </NavList>
+
+            <NavList>
+              <a>
+                <img src="/images/nav-network.svg"/>
+                <span>My Network</span>
+              </a>
+            </NavList>
+
+            <NavList>
+              <a>
+                <img src="/images/nav-jobs.svg"/>
+                <span>Jobs</span>
+              </a>
+            </NavList>
+
+            <NavList>
+              <a>
+                <img src="/images/nav-messaging.svg"/>
+                <span>Messaging</span>
+              </a>
+            </NavList>
+
+            <NavList>
+              <a>
+                <img src="/images/nav-notifications.svg"/>
+                <span>Notifications</span>
+              </a>
+            </NavList>
+            
+            <User>
+                <a>
+                    <img src="/images/user.svg" alt="" />
+                    <span>Me</span>
+                    <img src="/images/down-icon.svg"></img>
+                </a>
+
+                <SignOut>
+                    <a>
+                        Sign Out
+                    </a>
+                </SignOut>
+            </User>
+            <Work>
+                <a>
+                  <img src="/images/nav-work.svg" alt="" />
+                  <span>
+                    Work
+                    <img src="/images/down-icon.svg" alt="" />
+                  </span>
+                </a>
+
+            </Work>
+
           </NavListWrap>
          </Nav>   
         </Content>
@@ -115,6 +170,102 @@ const NavListWrap = styled.ul`
     display: flex;
     flex-wrap: nowrap;
     list-style-type: none;
+
+    .active {
+        span:after {
+            content: ' ';
+            transform: scaleX(1);
+            border-bottom: 2px solid var(--white, #fff);
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            transition: transform 0.2s ease-in-out;
+            width: 100%;
+            border-color: rgba(0, 0, 0, 0.9);
+        }
+
+    }
 `
 
-const NavList = styled.li``
+const NavList = styled.li`
+    display: flex;
+    align-items: center;
+    a {
+        align-items: center;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        font-weight: 400;
+        justify-content: center;
+        line-height: 1.5;
+        min-height: 52px;
+        min-width: 80px;
+        position: relative;
+        text-decoration: none;
+
+        span {
+            color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            min-width: 70px;
+        }
+    }
+
+    &:hover, 
+    &:active {
+        a {
+            span {
+                color: rgba(0, 0, 0, 0.9);
+           }
+        }
+    }
+
+`
+const SignOut = styled.div`
+    position: absolute;
+    top: 45px;
+    background: white;
+    border-radius:  0 0 5px 5px;
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    transition-duration: 167ms;
+    text-align: center;
+    display: none;
+
+`
+
+const User = styled(NavList)`
+    a > svg {
+        width: 24px; 
+        border-radius: 50%;
+
+    }
+
+    a > img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+    }
+
+    span {
+        display: flex;
+        align-items: center;
+    }
+    &:hover {
+        ${SignOut} {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+    }
+`
+
+const Work = styled(User)`
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+`
+
